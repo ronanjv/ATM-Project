@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class ATM {
@@ -57,6 +60,16 @@ public class ATM {
         withdrawMoney(fromAccount, amount);
         depositMoney(toAccount, amount);
         return true;
+    }
+
+    public static void audit() throws IOException {
+        File file = new File("AccountAudit.txt");
+        file.delete();
+        file.createNewFile();
+        PrintWriter pw = new PrintWriter("AccountAudit.txt");
+        accountMap.forEach((key, value) -> {
+            pw.println("acount: " + key + " cash: " + value);
+        });
     }
 
 }
