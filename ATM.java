@@ -38,7 +38,7 @@ public class ATM {
 
     public static double withdrawMoney(String userId, double amount) throws Exception {
         if (accountMap.containsKey(userId)) {
-            if (accountMap.get(userId) > amount) {
+            if (accountMap.get(userId) >= amount) {
                 double decrease = accountMap.get(userId) - amount;
                 accountMap.replace(userId, accountMap.get(userId), decrease);
                 return decrease;
@@ -46,6 +46,17 @@ public class ATM {
             throw new Exception("You are broke AF!");
         } else
             throw new Exception("You are broke AF!");
+    }
+
+    public static boolean transferMoney(String fromAccount, String toAccount, double amount) throws Exception {
+        if (!accountMap.containsKey(fromAccount))
+            return false;
+        else if (!accountMap.containsKey(toAccount))
+            return false;
+
+        withdrawMoney(fromAccount, amount);
+        depositMoney(toAccount, amount);
+        return true;
     }
 
 }
