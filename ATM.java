@@ -16,7 +16,9 @@ public class ATM {
     }
 
     public static void closeAccount(String userId) throws Exception {
-        if (accountMap.get(userId) == 0) {
+        if (accountMap.containsKey(userId)) {
+            throw new Exception("Account does not exist.");
+        } else if (accountMap.get(userId) == 0) {
             accountMap.remove(userId);
         } else
             throw new Exception("Must withdraw all money before closing account.");
